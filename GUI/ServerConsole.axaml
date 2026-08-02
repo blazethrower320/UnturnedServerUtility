@@ -1,0 +1,65 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:converters="using:UnturnedServerUtility.Converters"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:UnturnedServerUtility.Models"
+             xmlns:viewmodels="using:UnturnedServerUtility.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="410"
+             x:Class="UnturnedServerUtility.GUI.Styles.ServerConsole"
+             x:DataType="viewmodels:ServerConsoleViewModel">
+    
+    <UserControl.Resources>
+        <converters:ProcessToColorConverter x:Key="ProcessToColorConverter" />
+    </UserControl.Resources>
+    
+    <Border Background="#18191A">
+        <Grid RowDefinitions="Auto, *">
+        <!-- Top Toolbar Actions -->
+        <Border Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15,10,10,0" Spacing="10">
+                <Button>Console</Button>
+                <Button>Files</Button>
+                <Button>Databases?</Button>
+                <Button>Plugins</Button>
+                <Button>Settings</Button>
+            </StackPanel>
+        </Border>
+
+		<!-- Main Server Content Area -->
+		<Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width=".5*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" Background="">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0" Background="#202225" Margin="10, 10,10,0">
+                        <TextBlock Name="ConsoleOutput" HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Stretch"
+                                   Text="Console Here" />
+                    </Border>
+                    <TextBox Grid.Row="1" 
+                         TextAlignment="Left" 
+                         VerticalContentAlignment="Top" 
+                         VerticalAlignment="Center" 
+                         Margin="10,0,10,20" 
+                         Padding="3,6,3,0" 
+                         FontSize="12" 
+                         MinHeight="0" 
+                         Height="30"
+                         PlaceholderText="Type Command"></TextBox>
+                </Grid>
+            </Border>
+            <Border Grid.Column="1" Background="Green">
+                
+            </Border>
+		</Grid>
+    </Grid>
+    </Border>
+</UserControl>

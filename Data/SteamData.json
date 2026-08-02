@@ -1,0 +1,8 @@
+{
+  "SteamInstallation": {
+    "SteamCMDUrl": "https://steamcdn-a.akamaihd.net/client/installer/steamcmd.zip",
+    "FileName": "steamcmd.zip", // Not used right now
+    "FolderName": "steamcmd", // Not used
+    "SteamCMDExecutable": "steamcmd.exe"
+  }
+}

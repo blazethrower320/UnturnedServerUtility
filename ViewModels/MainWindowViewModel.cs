@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using UnturnedServerUtility.Models;
 
 namespace UnturnedServerUtility.ViewModels
 {
@@ -23,6 +24,11 @@ namespace UnturnedServerUtility.ViewModels
         public void ShowDashboardPage()
         {
             CurrentView = new MainWindowViewModel();
+        }
+
+        public void ShowConsolePage(ServerCollection? selectedServer = null)
+        {
+            CurrentView = new ServerConsoleViewModel(selectedServer);
         }
     }
 }

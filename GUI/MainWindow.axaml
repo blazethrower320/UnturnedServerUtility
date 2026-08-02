@@ -3,6 +3,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:UnturnedServerUtility.ViewModels;assembly=UnturnedServerUtility"
+        xmlns:styles="clr-namespace:UnturnedServerUtility.GUI.Styles;assembly=UnturnedServerUtility"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="UnturnedServerUtility.MainWindow"
         x:DataType="vm:MainWindowViewModel"
@@ -13,6 +14,15 @@
     <Design.DataContext>
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+
+    <Window.DataTemplates>
+        <DataTemplate DataType="vm:ServerSelectionViewModel">
+            <styles:ServerSelection/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:ServerConsoleViewModel">
+            <styles:ServerConsole/>
+        </DataTemplate>
+    </Window.DataTemplates>
 
     <Border Background="#18191A" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid>
