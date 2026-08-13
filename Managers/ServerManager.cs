@@ -204,11 +204,11 @@ namespace UnturnedServerUtility.Managers
                 Debug.WriteLine($"Unturned.exe not found at: {unturnedExePath}");
                 return;
             }
-
-            // RocketMod requires explicit module declaration when launched directly without ServerHelper.bat
             string serverName = Path.GetFileNameWithoutExtension(server.Tracker.ServerExecutable);
 
-            string arguments = $"-batchmode -nographics +LanServer/{serverName}";
+            //string arguments = $"-batchmode -nographics +LanServer/{serverName}";
+
+            string arguments = $"-batchmode -nographics -commandline +LanServer/{serverName}";
 
             Process process = new Process();
             process.StartInfo = new ProcessStartInfo
@@ -216,25 +216,42 @@ namespace UnturnedServerUtility.Managers
                 FileName = unturnedExePath,
                 Arguments = arguments,
                 WorkingDirectory = serverDirectory,
-                UseShellExecute = true,  // Must be true to allocate a native Windows Console window for RocketMod input
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                UseShellExecute = false,  // Must be true to allocate a native Windows Console window for RocketMod input
                 CreateNoWindow = false
             };
 
             process.EnableRaisingEvents = true;
 
-            process.Exited += (sender, args) =>
-            {
-                Debug.WriteLine($"{serverName} stopped.");
-
-                if (server.Tracker != null)
+            StringBuilder output = new StringBuilder();
+            process.OutputDataReceived += (sender, e) => {
+                if (!String.IsNullOrEmpty(e.Data))
                 {
-                    server.Tracker.Process = null;
-                    server.Tracker.ProcessId = null;
-                    server.Tracker.StartDate = null;
+                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                    {
+                        server.ServerConsole.Add(e.Data);
+                    });
+                    Debug.WriteLine($"[Server Out]: {e.Data}");
+                }
+            };
+
+            // Handle Standard Error (RocketMod/Unturned often write errors here)
+            process.ErrorDataReceived += (sender, e) => {
+                if (!String.IsNullOrEmpty(e.Data))
+                {
+                    Avalonia.Threading.Dispatcher.UIThread.Post(() =>
+                    {
+                        server.ServerConsole.Add(e.Data);
+                    });
+                    Debug.WriteLine($"[Server Err]: {e.Data}");
                 }
             };
 
             process.Start();
+            process.BeginOutputReadLine();
+            process.BeginErrorReadLine();
             server.Tracker.Process = process;
             server.Tracker.ProcessId = process.Id;
             server.Tracker.StartDate = DateTime.Now;

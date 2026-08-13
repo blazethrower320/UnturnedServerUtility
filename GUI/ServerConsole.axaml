@@ -40,9 +40,18 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Background="#202225" Margin="10, 10,10,0">
-                        <TextBlock Name="ConsoleOutput" HorizontalAlignment="Stretch"
-                                   VerticalAlignment="Stretch"
-                                   Text="Console Here" />
+                        <ScrollViewer Name="LogScrollViewer">
+                            <ItemsControl ItemsSource="{Binding SelectedServer.ServerConsole}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding}" 
+                                                   Foreground="White" 
+                                                   FontFamily="Consolas" 
+                                                   FontSize="12" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
                     </Border>
                     <TextBox Grid.Row="1" 
                          TextAlignment="Left" 

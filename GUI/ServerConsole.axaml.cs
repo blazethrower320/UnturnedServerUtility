@@ -1,6 +1,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Notifications;
 using Avalonia.Interactivity;
+using CommunityToolkit.Mvvm.ComponentModel;
 using MsBox.Avalonia;
 using MsBox.Avalonia.Enums;
 using System;
@@ -18,15 +19,19 @@ namespace UnturnedServerUtility.GUI.Styles
 {
     public partial class ServerConsole : UserControl
     {
-        InstallationManager steamCMD = new InstallationManager();
         public ServerConsole()
         {
             InitializeComponent();
-            DataContext = new ServerConsoleViewModel();
         }
 
+        public ServerConsole(ServerCollection server) : this()
+        {
+            DataContext = new ServerConsoleViewModel(server);
 
-
-       
+            LogScrollViewer.PropertyChanged += (sender, e) =>
+            {
+                LogScrollViewer.ScrollToEnd();
+            };
+        }
     }
 }
