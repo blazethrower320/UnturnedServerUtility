@@ -30,5 +30,13 @@ namespace UnturnedServerUtility.ViewModels
         {
             CurrentView = new ServerConsoleViewModel(selectedServer);
         }
+        public void ShowServerFilesPage(ServerCollection? selectedServer = null)
+        {
+            CurrentView = new ServerFilesViewModel(selectedServer);
+        }
+        public void ShowFileEditorPage(ServerCollection? selectedServer = null, string? filePath = null)
+        {
+            CurrentView = new FileEditorViewModel(selectedServer, filePath);
+        }
     }
 }

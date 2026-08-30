@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:models="using:UnturnedServerUtility.Models"
              xmlns:viewmodels="using:UnturnedServerUtility.ViewModels"
-             mc:Ignorable="d" d:DesignWidth="650" d:DesignHeight="410"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="600"
              x:Class="UnturnedServerUtility.GUI.Styles.ServerConsole"
              x:DataType="viewmodels:ServerConsoleViewModel">
     
@@ -18,8 +18,8 @@
         <!-- Top Toolbar Actions -->
         <Border Grid.Row="0">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15,10,10,0" Spacing="10">
-                <Button>Console</Button>
-                <Button>Files</Button>
+                <Button Click="ServerConsole_Console_Button_Click" CommandParameter="{Binding SelectedServer}">Console</Button>
+                <Button Click="ServerConsole_Files_Button_Click" CommandParameter="{Binding SelectedServer}">Files</Button>
                 <Button>Databases?</Button>
                 <Button>Plugins</Button>
                 <Button>Settings</Button>
@@ -65,9 +65,52 @@
                          PlaceholderText="Type Command"></TextBox>
                 </Grid>
             </Border>
-            <Border Grid.Column="1" Background="Green">
-                
-            </Border>
+            <Grid Grid.Column="1" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" /> <!-- Start/Stop -->
+                    <RowDefinition Height="Auto" /> <!-- Server Info, IP, Players, Duration -->
+                    <RowDefinition Height="Auto" /> <!-- Popular Buttons -->
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Background="#202225" Margin="0,10,10,0" CornerRadius="6" ClipToBounds="True">
+                    <Grid RowDefinitions="Auto, Auto">
+                        <Border Grid.Row="0" Background="#242526" Padding="10" Margin="0,0,0,10">
+                            <TextBlock HorizontalAlignment="Center" Foreground="white" FontWeight="SemiBold">Server Options</TextBlock>
+                        </Border>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Spacing="10" Margin="10,0,10,10">
+                            <Button Click="StartServer_Button_Click" CommandParameter="{Binding}" Background="#43B581">Start</Button>
+                            <Button Click="RestartServer_Button_Click" CommandParameter="{Binding}" Background="#FAA61A">Restart</Button>
+                            <Button Click="StopServer_Button_Click" CommandParameter="{Binding}" Background="#F04747">Stop</Button>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+
+                <Border Grid.Row="1" Background="#202225" Margin="0,10,10,0" CornerRadius="6" ClipToBounds="True">
+                    <Grid RowDefinitions="Auto, Auto">
+                        <Border Grid.Row="0" Background="#242526" Padding="10" Margin="0,0,0,10">
+                            <TextBlock HorizontalAlignment="Center" Foreground="white" FontWeight="SemiBold">Server Information</TextBlock>
+                        </Border>
+                        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Left" Spacing="10" Margin="10,0,10,10">
+                            <TextBlock>IP/Port:</TextBlock>
+                            <TextBlock>Players: 0/25:</TextBlock>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+                <Border Grid.Row="2" Background="#202225" Margin="0,10,10,0" CornerRadius="6" ClipToBounds="True">
+                    <Grid RowDefinitions="Auto, Auto">
+                        <Border Grid.Row="0" Background="#242526" Padding="10" Margin="0,0,0,10">
+                            <TextBlock HorizontalAlignment="Center" Foreground="white" FontWeight="SemiBold">Frequently Used</TextBlock>
+                        </Border>
+                        <StackPanel Grid.Row="1" Orientation="Vertical" HorizontalAlignment="Center" Spacing="10" Margin="10,0,10,10">
+                            <Button Click="StartServer_Button_Click" CommandParameter="{Binding}" Background="#43B581">Plugins Folder</Button>
+                            <Button Click="StartServer_Button_Click" CommandParameter="{Binding}" Background="#43B581">Wipe Server</Button>
+
+                        </StackPanel>
+                    </Grid>
+                </Border>
+
+            </Grid>
 		</Grid>
     </Grid>
     </Border>

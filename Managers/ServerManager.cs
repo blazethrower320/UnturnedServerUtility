@@ -237,7 +237,6 @@ namespace UnturnedServerUtility.Managers
                 }
             };
 
-            // Handle Standard Error (RocketMod/Unturned often write errors here)
             process.ErrorDataReceived += (sender, e) => {
                 if (!String.IsNullOrEmpty(e.Data))
                 {
@@ -276,7 +275,6 @@ namespace UnturnedServerUtility.Managers
                     Debug.WriteLine($"Stopping PID: {process.Id}");
 
                     process.Kill(true);
-                    //process.WaitForExit(5000); // Wait up to 5s for exit confirmation
                 }
 
                 process.Dispose();
@@ -292,6 +290,31 @@ namespace UnturnedServerUtility.Managers
                 Debug.WriteLine($"Stop error: {ex}");
                 return false;
             }
+        }
+        public static List<ServerFilesModel> GetPathServerFiles(string path)
+        {
+            var filesModel = new List<ServerFilesModel>();
+            if(!Directory.Exists(path))
+            {
+                return filesModel;
+            }
+            foreach(var entry in Directory.GetDirectories(path))
+            {
+                filesModel.Add(new ServerFilesModel
+                {
+                    fileName = Path.GetFileName(entry),
+                    isFolder = true,
+                });
+            }
+            foreach(var entry in Directory.GetFiles(path))
+            {
+                filesModel.Add(new ServerFilesModel
+                {
+                    fileName = Path.GetFileName(entry),
+                    isFolder = false,
+                });
+            }
+            return filesModel;
         }
     }
 }

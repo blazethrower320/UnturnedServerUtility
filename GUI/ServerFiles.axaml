@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:converters="using:UnturnedServerUtility.Converters"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="using:UnturnedServerUtility.GUI.Styles"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="using:UnturnedServerUtility.Models"
+             xmlns:viewmodels="using:UnturnedServerUtility.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="1100" d:DesignHeight="600"
+             x:Class="UnturnedServerUtility.GUI.Styles.ServerFiles"
+             x:DataType="viewmodels:ServerFilesViewModel">
+    
+    <UserControl.Resources>
+        <converters:DircetoryConverter x:Key="DircetoryConverter" />
+    </UserControl.Resources>
+    
+    <Border Background="#18191A">
+        <Grid RowDefinitions="Auto, *">
+        <Border Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="15,10,10,0" Spacing="10">
+               <Button Click="ServerConsole_Console_Button_Click" CommandParameter="{Binding SelectedServer}">Console</Button>
+                <Button Click="ServerConsole_Files_Button_Click" CommandParameter="{Binding SelectedServer}">Files</Button>
+                <Button>Databases?</Button>
+                <Button>Plugins</Button>
+                <Button>Settings</Button>
+            </StackPanel>
+        </Border>
+
+		<Grid Grid.Row="1" Margin="10">
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding ServerFiles}">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="models:ServerFilesModel">
+                    <Border Background="#202225" CornerRadius="6" Padding="12,8" Margin="0,4" HorizontalAlignment="Stretch">
+                        <Grid ColumnDefinitions="Auto, *, Auto">
+                            <Button Grid.Column="1"
+                                    Click="ServerFile_Button_Click"
+                                    CommandParameter="{Binding}"
+                                    Content="{Binding fileName}" 
+                                    Foreground="{Binding isFolder, Converter={StaticResource DircetoryConverter}}" 
+                                    FontWeight="Medium" 
+                                    FontSize="14" 
+                                    VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </ScrollViewer>
+</Grid>
+    </Grid>
+    </Border>
+</UserControl>

@@ -1,18 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <EnableTieredCompilation>true</EnableTieredCompilation>
     <TieredCompilationQuickJit>true</TieredCompilationQuickJit>
+	<AvaloniaPreviewerNetCoreShadowCopy>false</AvaloniaPreviewerNetCoreShadowCopy>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="12.1.0" />
+    <PackageReference Include="Avalonia.AvaloniaEdit" Version="12.0.0" />
     <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
     <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
     <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.0" />
+    <PackageReference Include="AvaloniaEdit.TextMate" Version="12.0.0" />
     <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3">
       <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
@@ -27,6 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="GUI\FileEditor.axaml.cs">
+      <DependentUpon>FileEditor.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="GUI\ServerFiles.axaml.cs">
+      <DependentUpon>ServerFiles.axaml</DependentUpon>
+    </Compile>
     <Compile Update="GUI\ServerConsole.axaml.cs">
       <DependentUpon>ServerConsole.axaml</DependentUpon>
     </Compile>

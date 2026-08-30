@@ -5,6 +5,8 @@
              x:Class="UnturnedServerUtility.App"
              RequestedThemeVariant="Dark">
 
+
+
     <Application.DataTemplates>
         <DataTemplate DataType="{x:Type vm:ServerSelectionViewModel}">
             <views:ServerSelection />
@@ -13,5 +15,6 @@
 
     <Application.Styles>
         <FluentTheme />
+        <StyleInclude Source="avares://AvaloniaEdit/Themes/Fluent/AvaloniaEdit.xaml" />
     </Application.Styles>
 </Application>

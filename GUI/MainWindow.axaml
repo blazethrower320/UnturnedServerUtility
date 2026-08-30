@@ -22,6 +22,12 @@
         <DataTemplate DataType="vm:ServerConsoleViewModel">
             <styles:ServerConsole/>
         </DataTemplate>
+        <DataTemplate DataType="vm:ServerFilesViewModel">
+            <styles:ServerFiles/>
+        </DataTemplate>
+        <DataTemplate DataType="vm:FileEditorViewModel">
+            <styles:FileEditor/>
+        </DataTemplate>
     </Window.DataTemplates>
 
     <Border Background="#18191A" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

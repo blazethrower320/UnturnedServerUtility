@@ -62,5 +62,15 @@ namespace UnturnedServerUtility
         {
             _viewModel?.ShowConsolePage(server);
         }
+
+        public void NavigateToServerFiles(ServerCollection server)
+        {
+            _viewModel?.ShowServerFilesPage(server);
+        }
+
+        public void NavigateToFileEditor(ServerCollection server, string path)
+        {
+            _viewModel?.ShowFileEditorPage(server, path);
+        }
     }
 }

@@ -17,23 +17,17 @@ using UnturnedServerUtility.ViewModels;
 
 namespace UnturnedServerUtility.GUI.Styles
 {
-    public partial class ServerConsole : UserControl
+    public partial class ServerFiles : UserControl
     {
-        public ServerConsole()
+        public ServerFiles()
         {
             InitializeComponent();
         }
 
-        public ServerConsole(ServerCollection server) : this()
+        public ServerFiles(ServerCollection server) : this()
         {
-            DataContext = new ServerConsoleViewModel(server);
-
-            LogScrollViewer.PropertyChanged += (sender, e) =>
-            {
-                LogScrollViewer.ScrollToEnd();
-            };
+            DataContext = new ServerFilesViewModel(server);
         }
-
         private void StartServer_Button_Click(object? sender, RoutedEventArgs e)
         {
         }
@@ -59,6 +53,24 @@ namespace UnturnedServerUtility.GUI.Styles
             if (sender is Button button && button.CommandParameter is ServerCollection server)
             {
                 MainWindow.Instance?.NavigateToConsole(server);
+            }
+        }
+
+        private void ServerFile_Button_Click(object? sender, RoutedEventArgs e)
+        {
+            if(sender is Button button && button.CommandParameter is ServerFilesModel files)
+            {
+                if (DataContext is ServerFilesViewModel viewModel)
+                {
+                    if(files.isFolder)
+                    {
+                        viewModel.ServerURL = Path.Combine(viewModel.ServerURL, files.fileName);
+                        viewModel.ServerFiles = ServerManager.GetPathServerFiles(viewModel.ServerURL);
+                        return;
+                    }
+                    MainWindow.Instance?.NavigateToFileEditor(viewModel.SelectedServer, Path.Combine(viewModel.ServerURL, files.fileName));
+
+                }
             }
         }
     }
